@@ -1,13 +1,15 @@
 package com.jianli.demo.proxy;
 
+import com.jianli.demo.util.AuthUtil;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class JDKProxy implements InvocationHandler {
-  private JDKProxyInstance target;
+  private JDKProxyMessageSender target;
 
-  public JDKProxy(JDKProxyInstance target) {
+  public JDKProxy(JDKProxyMessageSender target) {
     this.target = target;
   }
 
@@ -22,12 +24,9 @@ public class JDKProxy implements InvocationHandler {
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     if ("execute".equals(method.getName())) {
-      System.out.println("Authentification processing");
+      AuthUtil.auth();
       Object result = method.invoke(target, args);
-      System.out.println("Log processing");
       return result;
-    } else if ("delete".equals(method.getName())) {
-      //.....
     }
     return method.invoke(target, args);
   }

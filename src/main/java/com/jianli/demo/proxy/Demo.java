@@ -2,15 +2,18 @@ package com.jianli.demo.proxy;
 
 public class Demo {
   public static void main(String args[]){
-    JDKProxyInstance a=new JDKProxyInstance();
+    //JDK Proxy
+    JDKProxyMessageSender a=new JDKProxyMessageSender();
     JDKProxy jdkProxy=new JDKProxy(a);
     ExInterface proxy=jdkProxy.createProxy();
     proxy.execute();
+    System.out.println("\n");
 
+    //CGLib Proxy
     CGLibInstance cgLibInstance=new CGLibInstance();
-    CGLibProxy cgLibProxy=new CGLibProxy(cgLibInstance);
+    CGLibMessageSender cgLibProxy=new CGLibMessageSender(cgLibInstance);
     cgLibInstance= cgLibProxy.createProxy();
-    cgLibInstance.execute2();
+    cgLibInstance.execute();
   }
 
 

@@ -1,17 +1,18 @@
 package com.jianli.demo.proxy;
 
+import com.jianli.demo.util.AuthUtil;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
-public class CGLibProxy implements MethodInterceptor {
+public class CGLibMessageSender implements MethodInterceptor {
 
 
   private CGLibInstance target;
 
-  public CGLibProxy(CGLibInstance target) {
+  public CGLibMessageSender(CGLibInstance target) {
     super();
     this.target = target;
   }
@@ -28,15 +29,10 @@ public class CGLibProxy implements MethodInterceptor {
   public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy)
       throws Throwable {
     if ("execute".equals(method.getName())) {
-      System.out.println("Authentication processing");
+      AuthUtil.auth();
       Object result = methodProxy.invokeSuper(proxy, args);
-      System.out.println("Log processing");
       return result;
-    } else if ("delete".equals(method.getName())) {
-      //.....
-      return methodProxy.invokeSuper(proxy, args);
     }
     return methodProxy.invokeSuper(proxy, args);
-
   }
 }

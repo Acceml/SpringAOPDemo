@@ -9,14 +9,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 
-public class ServiceIntegrationTest {
+public class MessageSenderIntegrationTest {
 
   @Autowired
-  private Service service;
+  private MessageSender messageSender;
 
   @Test
   public void shouldApplyCustomAnnotation() throws InterruptedException {
-    service.serve();
+    messageSender.sendMessage();
   }
 
 }

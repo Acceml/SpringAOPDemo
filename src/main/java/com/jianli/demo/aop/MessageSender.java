@@ -3,10 +3,10 @@ package com.jianli.demo.aop;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Service {
+public class MessageSender {
 
-  @LogExecutionTime
-  public void serve() throws InterruptedException {
+  @Authentication
+  public void sendMessage() throws InterruptedException {
     Thread.sleep(2000);
   }
 }
